@@ -7,55 +7,35 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <!-- Side panel column -->
-            <ColumnDefinition Width="*"/>
-            <!-- Main canvas column -->
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <!-- Side panel column -->
-            <RowDefinition Height="24"/>
-            <!-- Main canvas column -->
-        </Grid.RowDefinitions>
+        <Canvas x:Name="canvas" Background="White" Grid.Row="0" Grid.Column="1" AllowDrop="True"
+                Drop="Canvas_Drop" DragOver="Canvas_DragOver" MouseMove="Canvas_MouseMove" />
 
-        <ListBox x:Name="sidePanel" Grid.Row="0" Grid.Column="0">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Width="50" Height="50" Source="{Binding Image}" MouseDown="DefaultImage_Click"/>
-                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
-        <Canvas x:Name="mainCanvas" Grid.Column="1" Grid.Row="0" Background="White" MouseMove="MainCanvas_MouseMove" MouseLeave="MainCanvas_MouseLeave" ScrollViewer.HorizontalScrollBarVisibility="Visible" MinWidth="600">
-            <Canvas.Resources>
-                <Style TargetType="Image">
-                    <Setter Property="Cursor" Value="Hand"/>
-                    <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
-                    <Setter Property="Effect">
-                        <Setter.Value>
-                            <DropShadowEffect Color="Black" Direction="315" ShadowDepth="2"/>
-                        </Setter.Value>
-                    </Setter>
-                    <EventSetter Event="MouseDown" Handler="Image_MouseDown"/>
-                    <EventSetter Event="MouseMove" Handler="Image_MouseMove"/>
-                    <EventSetter Event="MouseUp" Handler="Image_MouseUp"/>
-                </Style>
-            </Canvas.Resources>
-        </Canvas>
-        <Button Content="Add Image" Click="AddImage_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10"/>
-        <Button Content="Export SVG" Click="ExportSvg_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="80"/>
-        <Button Content="Export JSON" Click="ExportJson_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,359,0,0"/>
-
-        <StatusBar Grid.Row="1" Grid.ColumnSpan="2">
+        <StatusBar Height="20" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
             <StatusBarItem>
-                <TextBlock x:Name="statusText" Text="Cursor Position: 0, 0"/>
+                <TextBlock x:Name="coordinatesTextBlock" />
             </StatusBarItem>
         </StatusBar>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" Width="200">
+            <ListView x:Name="imageListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding ImageSource}" Width="100" Height="100"
+                               AllowDrop="True" PreviewMouseLeftButtonDown="Image_PreviewMouseLeftButtonDown" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Content="Set Background Image" Click="SetBackgroundImage_Click" />
+            <Button Content="Export" Click="ExportButton_Click" />
+        </StackPanel>
     </Grid>
 </Window>

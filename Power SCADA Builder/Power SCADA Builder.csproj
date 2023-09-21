@@ -9,20 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\AddEntity.png" />
-    <None Remove="Resources\LinkAlert.png" />
-    <None Remove="Resources\Small.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\AddEntity.png" />
-    <EmbeddedResource Include="Resources\LinkAlert.png" />
-    <EmbeddedResource Include="Resources\Small.png" />
+    <None Remove="Resources\AvatarFourDotsOff.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Svg" Version="3.4.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\AvatarFourDotsOff.png" />
   </ItemGroup>
 
   <ItemGroup>

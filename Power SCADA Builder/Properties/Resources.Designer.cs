@@ -59,5 +59,15 @@ namespace Power_SCADA_Builder.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AvatarFourDotsOff {
+            get {
+                object obj = ResourceManager.GetObject("AvatarFourDotsOff", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
