@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+
+
 
 namespace Power_SCADA_Builder
 {
@@ -25,7 +28,7 @@ namespace Power_SCADA_Builder
 
             // Add some predefined images to the collection
             images.Add(new ImageViewModel("pack://application:,,,/Resources/AvatarFourDotsOff.png"));
-            images.Add(new ImageViewModel("pack://application:,,,/Resources/AvatarFourDotsOff.png"));
+            images.Add(new ImageViewModel("pack://application:,,,/Resources/analog.png"));
 
             imageListView.ItemsSource = images;
             canvas.MouseMove += Canvas_MouseMove;
@@ -134,6 +137,7 @@ namespace Power_SCADA_Builder
                     double top = Canvas.GetTop(image);
                     double width = image.ActualWidth;
                     double height = image.ActualHeight;
+                    string name = image.Name;
 
                     //Dictionary<string, string> properties = imageViewModel.Properties;
 
@@ -143,7 +147,7 @@ namespace Power_SCADA_Builder
                         Top = top,
                         Width = width,
                         Height = height,
-                        //Properties = properties
+                
                     };
 
                     imageDataList.Add(imageData);
@@ -151,9 +155,35 @@ namespace Power_SCADA_Builder
             }
 
             string json = JsonConvert.SerializeObject(imageDataList, Formatting.Indented);
-            File.WriteAllText("exported_data.json", json);
+            
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
 
-            MessageBox.Show("Export completed. Data saved to 'exported_data.json'");
+            // Set the initial directory and file name (optional)
+            saveFileDialog.InitialDirectory = @"C:\";
+            saveFileDialog.FileName = "export_data.json";
+
+            // Set the file filter (optional)
+            saveFileDialog.Filter = "Text Files (*.json)|*.json|All Files (*.*)|*.*";
+
+            // Show the dialog and capture the result
+            Nullable<bool> result = saveFileDialog.ShowDialog();
+
+            // Check if the user clicked the "Save" button
+            if (result== true)
+            {
+                // Get the selected file name and save your data
+                string selectedFilePath = saveFileDialog.FileName;
+                File.WriteAllText(selectedFilePath, json);
+
+
+                Console.WriteLine("File saved at: " + selectedFilePath);
+                MessageBox.Show("Export completed. Data saved to 'exported_data.json'");
+            }
+
+
+
+
+           
         }
 
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
@@ -181,6 +211,5 @@ namespace Power_SCADA_Builder
         public double Top { get; set; }
         public double Width { get; set; }
         public double Height { get; set; }
-        public Dictionary<string, string> Properties { get; set; }
     }
 }
