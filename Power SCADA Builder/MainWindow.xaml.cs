@@ -109,6 +109,8 @@ namespace Power_SCADA_Builder
             var DeviceSize = (TextBox)FindName("DeviceSize");
             var DeviceFont = (TextBox)FindName("DeviceFont");
             var DeviceColor = (TextBox)FindName("DeviceColor");
+            var DeviceText = (TextBox)FindName("DeviceText");
+
             var uid = (Label)FindName("uid");
             var id = ((Image)sender).Uid;
 
@@ -119,17 +121,20 @@ namespace Power_SCADA_Builder
                 DeviceSize.Text = this.store[id].size;
                 DeviceFont.Text = this.store[id].font;
                 DeviceColor.Text = this.store[id].color;
+                DeviceText.Text = this.store[id].text;
                 if (this.store[id].type == "label"|| this.store[id].type == "button")
                 {
                     DeviceSize.Visibility = System.Windows.Visibility.Visible;
                     DeviceFont.Visibility = System.Windows.Visibility.Visible;
                     DeviceColor.Visibility = System.Windows.Visibility.Visible;
+                    DeviceText.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
                 {
                     DeviceFont.Visibility = System.Windows.Visibility.Hidden;
                     DeviceSize.Visibility = System.Windows.Visibility.Hidden;
                     DeviceColor.Visibility = System.Windows.Visibility.Hidden;
+                    DeviceText.Visibility = System.Windows.Visibility.Hidden;
 
 
                 }
@@ -303,6 +308,18 @@ namespace Power_SCADA_Builder
                     this.store[c].size = DeviceSize.Text;
             }
         }
+
+        private void DeviceText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var DeviceText = (TextBox)FindName("DeviceText");
+            var uid = (Label)FindName("uid");
+            if (DeviceText != null && uid != null)
+            {
+                string? c = uid.Content as string;
+                if (c != null && DeviceText.Text != "")
+                    this.store[c].text = DeviceText.Text;
+            }
+        }
     }
 
     public class ImageViewModel
@@ -337,6 +354,8 @@ namespace Power_SCADA_Builder
         public string font { get; set; }
         public string color{ get; set; }
         public string size { get; set; }
+
+        public string text { get; set; }
 
 
 

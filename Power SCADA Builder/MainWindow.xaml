@@ -49,10 +49,12 @@
         </Label>
         <Button x:Name="deleteImage" Content="Delete" HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.833,0.152" Width="103" Grid.Column="1" Click="deleteImage_Click"/>
         <Label Content="Color rgb" HorizontalAlignment="Left" Margin="22,94,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.481,2.351" Grid.Column="1"/>
-        <TextBox x:Name="DeviceColor" HorizontalAlignment="Left" Margin="0,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Height="20" Grid.Column="1" TextChanged="DeviceColor_TextChanged"/>
+        <TextBox x:Name="DeviceColor" HorizontalAlignment="Left" Margin="0,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Height="20" Grid.Column="1" TextChanged="DeviceColor_TextChanged" Visibility="Hidden"/>
         <Label Content="Font" HorizontalAlignment="Left" Margin="32,163,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.481,2.351" Grid.Column="1"/>
-        <TextBox x:Name="DeviceFont" HorizontalAlignment="Left" Margin="0,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Height="20" Grid.Column="1" TextChanged="DeviceFont_TextChanged"/>
-        <TextBox x:Name="DeviceSize" HorizontalAlignment="Left" Margin="0,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Height="20" Grid.Column="1" InputScope="Number" TextChanged="DeviceSize_TextChanged"/>
+        <TextBox x:Name="DeviceFont" HorizontalAlignment="Left" Margin="0,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Height="20" Grid.Column="1" TextChanged="DeviceFont_TextChanged" Visibility="Hidden"/>
+        <TextBox x:Name="DeviceSize" HorizontalAlignment="Left" Margin="0,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Height="20" Grid.Column="1" InputScope="Number" TextChanged="DeviceSize_TextChanged" Visibility="Hidden"/>
         <Label Content="Size" HorizontalAlignment="Left" Margin="32,239,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.481,2.351" Grid.Column="1"/>
+        <TextBox x:Name="DeviceText" HorizontalAlignment="Left" Margin="1,363,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Height="107" Grid.Column="1" TextChanged="DeviceText_TextChanged" Visibility="Hidden"/>
+        <Label Content="Text" HorizontalAlignment="Left" Margin="33,332,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.481,2.351" Grid.Column="1"/>
     </Grid>
 </Window>
