@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\AvatarFourDotsOff.png" />
+    <None Remove="Resources\motor.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\AvatarFourDotsOff.png" />
+    <Resource Include="Resources\motor.png" />
   </ItemGroup>
 
   <ItemGroup>
