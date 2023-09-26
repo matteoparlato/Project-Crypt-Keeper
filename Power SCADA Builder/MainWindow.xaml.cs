@@ -104,14 +104,37 @@ namespace Power_SCADA_Builder
         private void Image_MouseRightButtonDown(object sender, MouseEventArgs e)
         {
             
-            var nameBox = FindName("DeviceName") as TextBox;
-            var uid = FindName("uid") as Label;
-            if (nameBox != null && uid!=null) {
-                uid.Content = ((Image)sender).Uid;
-                var c = ((Image)sender).Uid;
-                nameBox.Text = this.store[c].name.ToString();
+
+            var nameBox = (TextBox)FindName("DeviceName");
+            var DeviceSize = (TextBox)FindName("DeviceSize");
+            var DeviceFont = (TextBox)FindName("DeviceFont");
+            var DeviceColor = (TextBox)FindName("DeviceColor");
+            var uid = (Label)FindName("uid");
+            var id = ((Image)sender).Uid;
+
+            uid.Content = id;
+            if ( id != "")
+            {
+                nameBox.Text = this.store[id].name;
+                DeviceSize.Text = this.store[id].size;
+                DeviceFont.Text = this.store[id].font;
+                DeviceColor.Text = this.store[id].color;
+                if (this.store[id].type == "label"|| this.store[id].type == "button")
+                {
+                    DeviceSize.Visibility = System.Windows.Visibility.Visible;
+                    DeviceFont.Visibility = System.Windows.Visibility.Visible;
+                    DeviceColor.Visibility = System.Windows.Visibility.Visible;
+                }
+                else
+                {
+                    DeviceFont.Visibility = System.Windows.Visibility.Hidden;
+                    DeviceSize.Visibility = System.Windows.Visibility.Hidden;
+                    DeviceColor.Visibility = System.Windows.Visibility.Hidden;
+
+
+                }
             }
-            
+
         }
 
         private void Image_MouseMove(object sender, MouseEventArgs e)
@@ -175,8 +198,8 @@ namespace Power_SCADA_Builder
             {
                 if (element.Value.name != "")
                 {
-                    element.Value.posX = element.Value.posX+50;
-                    element.Value.posY = element.Value.posY + 50;
+                    element.Value.posX = element.Value.posX + storeImage[(string)element.Key].Width/2;
+                    element.Value.posY = element.Value.posY + storeImage[(string)element.Key].Height / 2;
                     imageDataList.Add(element.Value);
 
                 }
@@ -244,6 +267,42 @@ namespace Power_SCADA_Builder
 
 
         }
+
+        private void DeviceColor_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var colorBox = (TextBox)FindName("DeviceColor") ;
+            var uid =(Label) FindName("uid")  ;
+            if (colorBox != null && uid != null)
+            {
+                string? c = uid.Content as string;
+                if (c != null)
+                    this.store[c].color = colorBox.Text;
+            }
+        }
+
+        private void DeviceFont_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var DeviceFont = (TextBox)FindName("DeviceFont");
+            var uid = (Label)FindName("uid");
+            if (DeviceFont != null && uid != null)
+            {
+                string? c = uid.Content as string;
+                if (c != null)
+                    this.store[c].font = DeviceFont.Text;
+            }
+        }
+
+        private void DeviceSize_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var DeviceSize = (TextBox)FindName("DeviceSize");
+            var uid = (Label)FindName("uid");
+            if (DeviceSize != null && uid != null)
+            {
+                string? c = uid.Content as string;
+                if (c != null && DeviceSize.Text!="")
+                    this.store[c].size = DeviceSize.Text;
+            }
+        }
     }
 
     public class ImageViewModel
@@ -277,7 +336,7 @@ namespace Power_SCADA_Builder
         public double posY { get; set; }
         public string font { get; set; }
         public string color{ get; set; }
-        public double size { get; set; }
+        public string size { get; set; }
 
 
 

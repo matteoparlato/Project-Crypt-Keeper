@@ -35,8 +35,8 @@
             <Button Content="Set Background Image" Click="SetBackgroundImage_Click" />
             <Button Content="Export" Click="ExportButton_Click" />
         </StackPanel>
-        <TextBox x:Name="DeviceName" HorizontalAlignment="Left" Margin="10,51,0,0" TextWrapping="Wrap" Text="name" VerticalAlignment="Top" Width="103" Height="20" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2"/>
-        <Label Content="name" HorizontalAlignment="Left" Margin="28,25,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.481,2.351" Grid.Column="1"/>
+        <TextBox x:Name="DeviceName" HorizontalAlignment="Left" Margin="0,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Height="20" TextChanged="TextBox_TextChanged" Grid.Column="1"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="32,29,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.481,2.351" Grid.Column="1"/>
         <Label x:Name="uid" Content="Label" HorizontalAlignment="Left" Margin="78,30,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="36" Foreground="Transparent" Height="15" Grid.Column="1">
             <Label.RenderTransform>
                 <TransformGroup>
@@ -47,6 +47,12 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Button x:Name="deleteImage" Content="Button" HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.833,0.152" Width="103" Grid.Column="1" Click="deleteImage_Click"/>
+        <Button x:Name="deleteImage" Content="Delete" HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.833,0.152" Width="103" Grid.Column="1" Click="deleteImage_Click"/>
+        <Label Content="Color rgb" HorizontalAlignment="Left" Margin="22,94,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.481,2.351" Grid.Column="1"/>
+        <TextBox x:Name="DeviceColor" HorizontalAlignment="Left" Margin="0,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Height="20" Grid.Column="1" TextChanged="DeviceColor_TextChanged"/>
+        <Label Content="Font" HorizontalAlignment="Left" Margin="32,163,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.481,2.351" Grid.Column="1"/>
+        <TextBox x:Name="DeviceFont" HorizontalAlignment="Left" Margin="0,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Height="20" Grid.Column="1" TextChanged="DeviceFont_TextChanged"/>
+        <TextBox x:Name="DeviceSize" HorizontalAlignment="Left" Margin="0,265,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Height="20" Grid.Column="1" InputScope="Number" TextChanged="DeviceSize_TextChanged"/>
+        <Label Content="Size" HorizontalAlignment="Left" Margin="32,239,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.481,2.351" Grid.Column="1"/>
     </Grid>
 </Window>
