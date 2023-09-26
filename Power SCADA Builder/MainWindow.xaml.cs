@@ -20,8 +20,9 @@ namespace Power_SCADA_Builder
     public partial class MainWindow : Window
     {
         private ObservableCollection<ImageViewModel> images = new ObservableCollection<ImageViewModel>();
-        private Image selectedImage;
+        private Image? selectedImage;
         private Dictionary<string, imgProp> store = new Dictionary<string, imgProp>();
+        private Dictionary<string, Image> storeImage = new Dictionary<string, Image>();
 
 
         //inizializza le immagini standard
@@ -33,6 +34,11 @@ namespace Power_SCADA_Builder
 
             images.Add(new ImageViewModel("C:/Users/usoffia/source/repos/Project-Crypt-Keeper/Power SCADA Builder/Resources/motor.png"));
             images.Add(new ImageViewModel("C:/Users/usoffia/source/repos/Project-Crypt-Keeper/Power SCADA Builder/Resources/analog.jpg"));
+            images.Add(new ImageViewModel("C:/Users/usoffia/source/repos/Project-Crypt-Keeper/Power SCADA Builder/Resources/label.png"));
+            images.Add(new ImageViewModel("C:/Users/usoffia/source/repos/Project-Crypt-Keeper/Power SCADA Builder/Resources/valve.png"));
+            images.Add(new ImageViewModel("C:/Users/usoffia/source/repos/Project-Crypt-Keeper/Power SCADA Builder/Resources/button.png"));
+            images.Add(new ImageViewModel("C:/Users/usoffia/source/repos/Project-Crypt-Keeper/Power SCADA Builder/Resources/digital.png"));
+
 
             imageListView.ItemsSource = images;
             canvas.MouseMove += Canvas_MouseMove;
@@ -46,7 +52,7 @@ namespace Power_SCADA_Builder
 
                 DataObject data = new DataObject();
                 data.SetData(DataFormats.StringFormat, image.Source.ToString()); // Set the data format
-
+                
                 DragDrop.DoDragDrop(image, data, DragDropEffects.Copy);
             }
         }
@@ -55,12 +61,13 @@ namespace Power_SCADA_Builder
         {
             if (selectedImage != null)
             {
-                string imageSourceString = e.Data.GetData(DataFormats.StringFormat) as string;
+                string? imageSourceString = e.Data.GetData(DataFormats.StringFormat) as string;
 
                 if (!string.IsNullOrEmpty(imageSourceString))
                 {
                     BitmapImage imageSource = new BitmapImage(new Uri(imageSourceString));
                     Image newImage = new Image { Source = imageSource, Width = 100, Height = 100 };
+                    
                     var rand =new Random();
                     newImage.Uid = rand.Next().ToString();
                     //define device type
@@ -72,7 +79,8 @@ namespace Power_SCADA_Builder
                     if (imageSourceString.Contains("button")) deviceType = "button";
                     if (imageSourceString.Contains("label")) deviceType = "label";
 
-                    store.Add(newImage.Uid, new imgProp("",deviceType));
+                    store.Add(newImage.Uid, new imgProp("",deviceType, newImage.Uid));
+                    storeImage.Add(newImage.Uid, newImage);
                         
                     canvas.Children.Add(newImage);
 
@@ -99,9 +107,9 @@ namespace Power_SCADA_Builder
             var nameBox = FindName("DeviceName") as TextBox;
             var uid = FindName("uid") as Label;
             if (nameBox != null && uid!=null) {
-                uid.Content = (sender as Image).Uid;
-                string c = (sender as Image).Uid;
-                nameBox.Text = this.store[c].Name.ToString();
+                uid.Content = ((Image)sender).Uid;
+                var c = ((Image)sender).Uid;
+                nameBox.Text = this.store[c].name.ToString();
             }
             
         }
@@ -110,12 +118,12 @@ namespace Power_SCADA_Builder
         {
             if (e.LeftButton == MouseButtonState.Pressed && sender is Image image)
             {
-                Canvas canvas = image.Parent as Canvas;
+                Canvas? canvas = image.Parent as Canvas;
 
                 if (canvas != null)
                 {
-                    double newX = e.GetPosition(canvas).X - image.ActualWidth / 2;
-                    double newY = e.GetPosition(canvas).Y - image.ActualHeight / 2;
+                    double newX = e.GetPosition(canvas).X - (image.Width / 2);
+                    double newY = e.GetPosition(canvas).Y - (image.Height / 2);
 
                     Canvas.SetLeft(image, newX);
                     Canvas.SetTop(image, newY);
@@ -125,7 +133,7 @@ namespace Power_SCADA_Builder
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            selectedImage = sender as Image;
+            selectedImage = (Image)sender;
             selectedImage.CaptureMouse();
         }
 
@@ -133,10 +141,10 @@ namespace Power_SCADA_Builder
         {
             if (selectedImage != null)
             {
-                store[(sender as Image).Uid].PosX= Canvas.GetLeft((sender as Image));
-                store[(sender as Image).Uid].PosY = Canvas.GetTop((sender as Image));
+                store[((Image)sender).Uid].posX= Canvas.GetLeft(((Image)sender));
+                store[((Image)sender).Uid].posY = Canvas.GetTop(((Image)sender));
                 selectedImage.ReleaseMouseCapture();
-                selectedImage = null;
+                selectedImage = null;   
             }
         }
 
@@ -165,8 +173,13 @@ namespace Power_SCADA_Builder
 
             foreach (var element in store)
             {
-                    if(element.Value.Name!="")
-                        imageDataList.Add(element.Value);
+                if (element.Value.name != "")
+                {
+                    element.Value.posX = element.Value.posX+50;
+                    element.Value.posY = element.Value.posY + 50;
+                    imageDataList.Add(element.Value);
+
+                }
             }
 
             string json = JsonConvert.SerializeObject(imageDataList, Formatting.Indented);
@@ -210,10 +223,26 @@ namespace Power_SCADA_Builder
             var uid = FindName("uid") as Label;
             if (nameBox != null && uid != null)
             {
-
-                string c = uid.Content as string;
-                this.store[c].Name=nameBox.Text;
+                string? c = uid.Content as string;
+                if (c != null) 
+                    this.store[c].name=nameBox.Text;
             }
+        }
+
+        private void deleteImage_Click(object sender, RoutedEventArgs e)
+        {
+            var uid = FindName("uid") as Label;
+            if (uid != null && (uid.Content as string) != "")
+            {
+                String S = (string)uid.Content;
+                canvas.Children.Remove(storeImage[S]);
+                storeImage.Remove(S);
+                store.Remove(S);
+
+            }
+
+
+
         }
     }
 
@@ -236,22 +265,31 @@ namespace Power_SCADA_Builder
         public double Top { get; set; }
         public double Width { get; set; }
         public double Height { get; set; }
-        public  string name { get; set; }
+        public  string? name { get; set; }
+        
     }
 
-    public class imgProp
+    public  class imgProp
     {
-        public string Name { get; set; }
-        public string Type { get; set; }
-        public double PosX { get; set; }
-        public double PosY { get; set; }
+        public string name { get; set; }
+        public string type { get; set; }
+        public double posX { get; set; }
+        public double posY { get; set; }
+        public string font { get; set; }
+        public string color{ get; set; }
+        public double size { get; set; }
 
-        public imgProp( string name, string deviceType)
+
+
+
+        public imgProp( string name, string deviceType, string uid)
         {
-            this.Type = deviceType;
-            this.Name = name;
+            this.type = deviceType;
+            this.name = name;
+            
         }
 
     }
+
 
 }

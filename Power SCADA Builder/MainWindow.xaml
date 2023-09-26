@@ -37,7 +37,7 @@
         </StackPanel>
         <TextBox x:Name="DeviceName" HorizontalAlignment="Left" Margin="10,51,0,0" TextWrapping="Wrap" Text="name" VerticalAlignment="Top" Width="103" Height="20" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2"/>
         <Label Content="name" HorizontalAlignment="Left" Margin="28,25,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.481,2.351" Grid.Column="1"/>
-        <Label x:Name="uid" Content="Label" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="36" Foreground="Transparent" Height="15" Grid.ColumnSpan="2">
+        <Label x:Name="uid" Content="Label" HorizontalAlignment="Left" Margin="78,30,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="36" Foreground="Transparent" Height="15" Grid.Column="1">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -47,5 +47,6 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
+        <Button x:Name="deleteImage" Content="Button" HorizontalAlignment="Left" Margin="0,4,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.833,0.152" Width="103" Grid.Column="1" Click="deleteImage_Click"/>
     </Grid>
 </Window>
