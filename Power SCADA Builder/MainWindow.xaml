@@ -5,27 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Power_SCADA_Builder"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="793" Width="1500">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="294" />
+            <ColumnDefinition Width="14" />
+            <ColumnDefinition Width="280"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Canvas x:Name="canvas" Background="White" Grid.Row="0" Grid.Column="1" AllowDrop="True"
-                Drop="Canvas_Drop" DragOver="Canvas_DragOver" MouseMove="Canvas_MouseMove" />
+        <Canvas x:Name="canvas" Background="White" Grid.Column="2" AllowDrop="True"
+                Drop="Canvas_Drop" DragOver="Canvas_DragOver" MouseMove="Canvas_MouseMove" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1000" Height="766" />
 
-        <StatusBar Height="20" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-            <StatusBarItem>
-                <TextBlock x:Name="coordinatesTextBlock" />
-            </StatusBarItem>
-        </StatusBar>
-
-        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" Margin="137,0,10,0">
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" Margin="123,0,0,0">
             <ListView x:Name="imageListView"  VerticalAlignment="Center" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
                 <ListView.Background>
                     <ImageBrush Stretch="UniformToFill"/>
@@ -40,9 +35,9 @@
             <Button Content="Set Background Image" Click="SetBackgroundImage_Click" />
             <Button Content="Export" Click="ExportButton_Click" />
         </StackPanel>
-        <TextBox x:Name="DeviceName" HorizontalAlignment="Left" Margin="10,51,0,0" TextWrapping="Wrap" Text="name" VerticalAlignment="Top" Width="103" Height="20" TextChanged="TextBox_TextChanged"/>
-        <Label Content="name" HorizontalAlignment="Left" Margin="42,25,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.481,2.351"/>
-        <Label x:Name="uid" Content="Label" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="36" Foreground="Transparent" Height="15">
+        <TextBox x:Name="DeviceName" HorizontalAlignment="Left" Margin="10,51,0,0" TextWrapping="Wrap" Text="name" VerticalAlignment="Top" Width="103" Height="20" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2"/>
+        <Label Content="name" HorizontalAlignment="Left" Margin="28,25,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.481,2.351" Grid.Column="1"/>
+        <Label x:Name="uid" Content="Label" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="36" Foreground="Transparent" Height="15" Grid.ColumnSpan="2">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

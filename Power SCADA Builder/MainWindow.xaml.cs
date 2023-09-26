@@ -154,6 +154,7 @@ namespace Power_SCADA_Builder
             {
                 string imagePath = openFileDialog.FileName;
                 ImageBrush brush = new ImageBrush(new BitmapImage(new Uri(imagePath)));
+                brush.Stretch = Stretch.Uniform;
                 canvas.Background = brush;
             }
         }
@@ -199,7 +200,7 @@ namespace Power_SCADA_Builder
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
             var cursorPosition = e.GetPosition(canvas);
-            coordinatesTextBlock.Text = $"X: {cursorPosition.X}, Y: {cursorPosition.Y}";
+            
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
