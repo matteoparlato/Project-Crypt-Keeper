@@ -56,5 +56,7 @@
         <Label Content="Size" HorizontalAlignment="Left" Margin="32,239,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.481,2.351" Grid.Column="1"/>
         <TextBox x:Name="DeviceText" HorizontalAlignment="Left" Margin="1,363,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Height="107" Grid.Column="1" TextChanged="DeviceText_TextChanged" Visibility="Hidden"/>
         <Label Content="Text" HorizontalAlignment="Left" Margin="33,332,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.481,2.351" Grid.Column="1"/>
+        <Label Content="Api" HorizontalAlignment="Left" Margin="33,538,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.481,2.351" Grid.Column="1"/>
+        <TextBox x:Name="DeviceApi" HorizontalAlignment="Left" Margin="1,569,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Height="20" Grid.Column="1" TextChanged="DeviceApi_TextChanged"/>
     </Grid>
 </Window>

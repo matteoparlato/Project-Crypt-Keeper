@@ -110,6 +110,7 @@ namespace Power_SCADA_Builder
             var DeviceFont = (TextBox)FindName("DeviceFont");
             var DeviceColor = (TextBox)FindName("DeviceColor");
             var DeviceText = (TextBox)FindName("DeviceText");
+            var DeviceApi = (TextBox)FindName("DeviceApi");
 
             var uid = (Label)FindName("uid");
             var id = ((Image)sender).Uid;
@@ -124,6 +125,8 @@ namespace Power_SCADA_Builder
                 DeviceText.Text = this.store[id].text;
                 if (this.store[id].type == "label"|| this.store[id].type == "button")
                 {
+                    if (this.store[id].type == "button")
+                        DeviceApi.Visibility = System.Windows.Visibility.Visible;
                     DeviceSize.Visibility = System.Windows.Visibility.Visible;
                     DeviceFont.Visibility = System.Windows.Visibility.Visible;
                     DeviceColor.Visibility = System.Windows.Visibility.Visible;
@@ -135,9 +138,12 @@ namespace Power_SCADA_Builder
                     DeviceSize.Visibility = System.Windows.Visibility.Hidden;
                     DeviceColor.Visibility = System.Windows.Visibility.Hidden;
                     DeviceText.Visibility = System.Windows.Visibility.Hidden;
+                    DeviceApi.Visibility = System.Windows.Visibility.Hidden;
 
 
                 }
+
+
             }
 
         }
@@ -320,6 +326,18 @@ namespace Power_SCADA_Builder
                     this.store[c].text = DeviceText.Text;
             }
         }
+
+        private void DeviceApi_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var DeviceApi = (TextBox)FindName("DeviceApi");
+            var uid = (Label)FindName("uid");
+            if (DeviceApi != null && uid != null)
+            {
+                string? c = uid.Content as string;
+                if (c != null && DeviceApi.Text != "")
+                    this.store[c].api = DeviceApi.Text;
+            }
+        }
     }
 
     public class ImageViewModel
@@ -356,6 +374,7 @@ namespace Power_SCADA_Builder
         public string size { get; set; }
 
         public string text { get; set; }
+        public string api { get; set; }
 
 
 
